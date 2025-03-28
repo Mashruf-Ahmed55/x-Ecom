@@ -41,7 +41,7 @@ const passportConfig_github = passport.use(
     {
       clientID: envConfig.github_client_id,
       clientSecret: envConfig.github_client_secret,
-      callbackURL: 'http://127.0.0.1:8080/api/v1/users/auth/github/callback',
+      callbackURL: `${envConfig.callBackUrl}/auth/github/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -80,7 +80,7 @@ const passport_google = passport.use(
     {
       clientID: envConfig.google_client_id,
       clientSecret: envConfig.google_client_secret,
-      callbackURL: 'http://127.0.0.1:8080/api/v1/users/auth/google/callback',
+      callbackURL: `${envConfig.callBackUrl}/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, cb) => {
       console.log(profile);

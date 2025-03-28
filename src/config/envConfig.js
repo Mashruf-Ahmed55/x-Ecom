@@ -10,6 +10,7 @@ const _config = {
   github_client_secret: process.env.GITHUB_CLIENT_SECRET,
   google_client_id: process.env.GOOGLE_CLIENT_ID,
   google_client_secret: process.env.GOOGLE_CLIENT_SECRET,
+  callBackUrl: process.env.CALL_BACK_URL,
 };
 
 export const envConfig = Object.freeze(_config);
