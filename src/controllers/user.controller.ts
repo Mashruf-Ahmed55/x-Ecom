@@ -52,7 +52,7 @@ export const createUser = expressAsyncHandler(
           data: newUser,
         });
     } catch (error) {
-      next(createHttpError(500, 'Internal server error', error));
+      next(createHttpError(500, 'Internal server error'));
     }
   }
 );
@@ -96,7 +96,7 @@ export const loginUser = expressAsyncHandler(
           data: newUser,
         });
     } catch (error) {
-      next(createHttpError(500, 'Internal Server Error', error));
+      next(createHttpError(500, 'Internal Server Error'));
     }
   }
 );
@@ -148,7 +148,7 @@ export const logoutUser = expressAsyncHandler(
           message: 'User logged out successfully',
         });
     } catch (error) {
-      next(createHttpError(500, 'Internal Server Error', error));
+      next(createHttpError(500, 'Internal Server Error'));
     }
   }
 );
@@ -161,7 +161,7 @@ export const getAllUsers = expressAsyncHandler(
       const users = await userModel.find({});
       res.status(200).json({ success: true, data: users });
     } catch (error) {
-      next(createHttpError(500, 'Internal Server Error', error));
+      next(createHttpError(500, 'Internal Server Error'));
     }
   }
 );
@@ -178,7 +178,7 @@ export const getUser = expressAsyncHandler(
       }
       res.status(200).json({ success: true, data: user });
     } catch (error) {
-      next(createHttpError(500, 'Internal Server Error', error));
+      next(createHttpError(500, 'Internal Server Error'));
     }
   }
 );
@@ -197,7 +197,7 @@ export const deleteUser = expressAsyncHandler(
         .status(200)
         .json({ success: true, message: 'User deleted successfully' });
     } catch (error) {
-      next(createHttpError(500, 'Internal Server Error', error));
+      next(createHttpError(500, 'Internal Server Error'));
     }
   }
 );
@@ -227,7 +227,7 @@ export const updateUser = expressAsyncHandler(
         .status(200)
         .json({ success: true, message: 'User Updated successfully' });
     } catch (error) {
-      next(createHttpError(500, 'Internal Server Error', error));
+      next(createHttpError(500, 'Internal Server Error'));
     }
   }
 );
@@ -248,7 +248,7 @@ export const blockUser = expressAsyncHandler(
         .status(200)
         .json({ success: true, message: 'User Blocked successfully' });
     } catch (error) {
-      next(createHttpError(500, 'Internal Server Error', error));
+      next(createHttpError(500, 'Internal Server Error'));
     }
   }
 );
@@ -269,7 +269,7 @@ export const unBlockUser = expressAsyncHandler(
         .status(200)
         .json({ success: true, message: 'User UnBlocked successfully' });
     } catch (error) {
-      next(createHttpError(500, 'Internal Server Error', error));
+      next(createHttpError(500, 'Internal Server Error'));
     }
   }
 );

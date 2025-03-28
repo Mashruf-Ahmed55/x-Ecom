@@ -1,5 +1,9 @@
 import { Router } from 'express';
-import { createProduct, getAllProducts, getaProduct } from '../controllers';
+import {
+  createProduct,
+  getAllProducts,
+  getaProduct,
+} from '../controllers/product.controller';
 import protectAdmin, {
   authenticateUser,
 } from './../middlewares/authMiddlewares';

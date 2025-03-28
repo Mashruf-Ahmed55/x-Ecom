@@ -14,7 +14,7 @@ export const createProduct = expressAsyncHandler(
         product: newProduct,
       });
     } catch (error) {
-      next(createHttpError(500, 'Internal server error', error));
+      next(createHttpError(500, 'Internal server error'));
     }
   }
 );
@@ -32,7 +32,7 @@ export const getaProduct = expressAsyncHandler(
         product: productFind,
       });
     } catch (error) {
-      next(createHttpError(500, 'Internal server error', error));
+      next(createHttpError(500, 'Internal server error'));
     }
   }
 );
@@ -50,7 +50,7 @@ export const getAllProducts = expressAsyncHandler(
         product: productFind,
       });
     } catch (error) {
-      next(createHttpError(500, 'Internal server error', error));
+      next(createHttpError(500, 'Product not found'));
     }
   }
 );
