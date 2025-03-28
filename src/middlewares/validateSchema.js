@@ -1,11 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
 
-export const validateSchemaSignUp = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void | Response<any, Record<string, any>> => {
+export const validateSchemaSignUp = (req, res, next) => {
   try {
     const schema = Joi.object({
       firstName: Joi.string().required().min(1).max(30).alphanum(),
@@ -38,11 +33,7 @@ export const validateSchemaSignUp = (
     return res.status(500).json({ success: false, message: 'Server Error' });
   }
 };
-export const validateSchemaSignIn = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const validateSchemaSignIn = (req, res, next) => {
   try {
     const schema = Joi.object({
       email: Joi.string().email().required().lowercase(),

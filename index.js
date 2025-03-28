@@ -1,9 +1,8 @@
-import 'dotenv/config';
-import app from './src/app';
-import connectDb from './src/config/dbConfig';
-import { envConfig } from './src/config/envConfig';
+import app from './src/app.js';
+import connectDb from './src/config/dbConfig.js';
+import { envConfig } from './src/config/envConfig.js';
 
-const startServer = async (): Promise<void> => {
+const startServer = async () => {
   try {
     await connectDb();
     app.listen(envConfig.port, () => {

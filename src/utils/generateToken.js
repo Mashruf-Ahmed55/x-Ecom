@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
-import { envConfig } from '../config/envConfig';
+import { envConfig } from '../config/envConfig.js';
 
-const generateAccessToken = (id: string) => {
+const generateAccessToken = (id) => {
   if (!envConfig.jwtSecret_accessToken) {
     throw new Error('JWT Secret not found');
   }
@@ -10,7 +10,7 @@ const generateAccessToken = (id: string) => {
   });
 };
 
-const generateRefreshToken = async (id: string) => {
+const generateRefreshToken = async (id) => {
   if (!envConfig.jwtSecret_refreshToken) {
     throw new Error('JWT Secret not found');
   }
@@ -19,15 +19,15 @@ const generateRefreshToken = async (id: string) => {
   });
 };
 
-const generateAccessTokenAndRefreshToken = async (id: string) => {
+const generateAccessTokenAndRefreshToken = async (id) => {
   const accessToken = generateAccessToken(id);
   const refreshToken = await generateRefreshToken(id);
   return { accessToken, refreshToken };
 };
 
-const verifyRefreshToken = (token: string) => {
+const verifyRefreshToken = (token) => {
   try {
-    return jwt.verify(token, envConfig.jwtSecret_refreshToken!);
+    return jwt.verify(token, envConfig.jwtSecret_refreshToken);
   } catch (error) {
     return null;
   }

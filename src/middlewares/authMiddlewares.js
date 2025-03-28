@@ -1,20 +1,14 @@
-import { NextFunction, Request, Response } from 'express';
 import createHttpError from 'http-errors';
-import iUser from '../types/user.types';
 
-import { passportConfig_jwt } from '../config/passportConfig';
-import userModel from '../models/user.model';
-import returID from '../utils';
+import { passportConfig_jwt } from '../config/passportConfig.js';
+import userModel from '../models/user.model.js';
+import returID from '../utils/index.js';
 
-export const authenticateUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const authenticateUser = async (req, res, next) => {
   passportConfig_jwt.authenticate(
     'jwt',
     { session: false },
-    (err: any, user: iUser, info: any) => {
+    (err, user, info) => {
       if (err) {
         return next(createHttpError(401, 'Unauthorized'));
       }
@@ -29,13 +23,9 @@ export const authenticateUser = async (
   )(req, res, next);
 };
 
-const protectAdmin = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const protectAdmin = async (req, res, next) => {
   try {
-   const userId = returID(req.user);
+    const userId = returID(req.user);
     const user = await userModel.findById(userId);
     if (!user || user.isAdmin !== 'ADMIN') {
       return next(createHttpError(403, 'Forbidden, not admin'));

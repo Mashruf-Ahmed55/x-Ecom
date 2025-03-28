@@ -1,15 +1,14 @@
 import bcrypt from 'bcryptjs';
-import { Request } from 'express';
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as JwtStrategy } from 'passport-jwt';
-import userModel from '../models/user.model';
-import generateGmail from '../utils/generateAutoEmail';
-import { generateAccessTokenAndRefreshToken } from '../utils/generateToken';
-import { envConfig } from './envConfig';
+import userModel from '../models/user.model.js';
+import generateGmail from '../utils/generateAutoEmail.js';
+import { generateAccessTokenAndRefreshToken } from '../utils/generateToken.js';
+import { envConfig } from './envConfig.js';
 
-const cookieExtractor = function (req: Request) {
+const cookieExtractor = function (req) {
   var token = null;
   if (req && req.cookies) {
     token = req.cookies.accessToken;
@@ -20,7 +19,7 @@ const passportConfig_jwt = passport.use(
   new JwtStrategy(
     {
       jwtFromRequest: cookieExtractor,
-      secretOrKey: envConfig.jwtSecret_accessToken!,
+      secretOrKey: envConfig.jwtSecret_accessToken,
     },
     async (payload, done) => {
       try {
@@ -40,16 +39,11 @@ const passportConfig_jwt = passport.use(
 const passportConfig_github = passport.use(
   new GitHubStrategy(
     {
-      clientID: envConfig.github_client_id!,
-      clientSecret: envConfig.github_client_secret!,
+      clientID: envConfig.github_client_id,
+      clientSecret: envConfig.github_client_secret,
       callbackURL: 'http://127.0.0.1:8080/api/v1/users/auth/github/callback',
     },
-    async (
-      accessToken: string,
-      refreshToken: string,
-      profile: any,
-      done: any
-    ) => {
+    async (accessToken, refreshToken, profile, done) => {
       try {
         let user = await userModel.findOne({ githubId: profile.id });
         const autoGenerateEmail = generateGmail(profile.username);
@@ -84,16 +78,11 @@ const passportConfig_github = passport.use(
 const passport_google = passport.use(
   new GoogleStrategy(
     {
-      clientID: envConfig.google_client_id!,
-      clientSecret: envConfig.google_client_secret!,
+      clientID: envConfig.google_client_id,
+      clientSecret: envConfig.google_client_secret,
       callbackURL: 'http://127.0.0.1:8080/api/v1/users/auth/google/callback',
     },
-    async (
-      accessToken: string,
-      refreshToken: string,
-      profile: any,
-      cb: any
-    ) => {
+    async (accessToken, refreshToken, profile, cb) => {
       console.log(profile);
       try {
         let user = await userModel.findOne({ googleId: profile.id });

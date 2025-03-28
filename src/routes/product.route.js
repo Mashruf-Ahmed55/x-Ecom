@@ -3,10 +3,10 @@ import {
   createProduct,
   getAllProducts,
   getaProduct,
-} from '../controllers/product.controller';
+} from '../controllers/product.controller.js';
 import protectAdmin, {
   authenticateUser,
-} from './../middlewares/authMiddlewares';
+} from '../middlewares/authMiddlewares.js';
 
 const productRouter = Router();
 

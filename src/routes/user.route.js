@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
 import passport from 'passport';
 import {
   accessTokenCreate,
@@ -9,14 +9,16 @@ import {
   getUser,
   loginUser,
   logoutUser,
+  unBlockUser,
   updateUser,
-} from '../controllers/user.controller';
-import protectAdmin, { authenticateUser } from '../middlewares/authMiddlewares';
+} from '../controllers/user.controller.js';
+import protectAdmin, {
+  authenticateUser,
+} from '../middlewares/authMiddlewares.js';
 import {
   validateSchemaSignIn,
   validateSchemaSignUp,
-} from '../middlewares/validateSchema';
-import { unBlockUser } from './../controllers/user.controller';
+} from '../middlewares/validateSchema.js';
 
 const userRouter = Router();
 
@@ -42,8 +44,8 @@ userRouter.get(
     failureRedirect: `http://localhost:5173/login`,
     session: false,
   }),
-  function (req: Request, res: Response) {
-    const user = req.user as { accessToken: string; refreshToken: string };
+  function (req, res) {
+    const user = req.user;
 
     res
       .cookie('accessToken', user.accessToken, {
@@ -72,8 +74,8 @@ userRouter.get(
     failureRedirect: 'http://localhost:5173/login',
     session: false,
   }),
-  function (req: Request, res: Response) {
-    const user = req.user as { accessToken: string; refreshToken: string };
+  function (req, res) {
+    const user = req.user;
 
     res
       .cookie('accessToken', user.accessToken, {
